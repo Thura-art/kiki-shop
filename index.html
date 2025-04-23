@@ -1,18 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kiki shop - YL</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kiki Shop - Premium Snacks & Drinks</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="welcome-container">
-    <img src="rabbit.png" alt="Dancing Rabbit" class="rabbit-img">
-    <h1>Kiki Shop – YL</h1>
-    <p>Welcome to our sweet snack paradise!</p>
-    <a href="menu.html" class="menu-button">🍿 See Our Menu</a>
+    <img src="rabbit.png" alt="Kiki Shop Mascot" class="rabbit-img" />
+
+    <div class="shop-header">
+      <h1>Kiki Shop</h1>
+      <p class="tagline">Premium Snacks & Drinks</p>
+    </div>
+
+    <div class="order-buttons">
+      <a href="menu.html" class="menu-button">🍿 View Full Menu</a>
+      <a href="#cart" class="cart-button">🛒 View Cart (<span id="cart-count">0</span>)</a>
+    </div>
   </div>
+
+  <!-- Shopping Cart Popup -->
+  <div id="cart-popup" class="cart-popup">
+    <div class="cart-content">
+      <h3>Your Order</h3>
+      <div id="cart-items"></div>
+      <p class="cart-total">Total: <span id="cart-total">0</span> Baht</p>
+      <button class="checkout-btn" onclick="showContact()">Confirm Order</button>
+      <button class="close-cart" onclick="closeCart()">Continue Shopping</button>
+      <div id="contact-info" style="display:none; margin-top: 15px;">
+        <p>📞 Contact us on Telegram: <a href="https://t.me/JiangLe039" target="_blank">@JiangLe039</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="order-buttons">
+    
+    
+    <!-- Add this new button -->
+    <button onclick="shareShop()" class="share-button">📤 Share Shop</button>
+  </div>
+
+  <script src="cart.js"></script>
 </body>
 </html>

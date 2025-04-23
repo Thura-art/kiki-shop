@@ -1,41 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kiki shop - Menu</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kiki Shop - Menu</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="menu-page">
     <h1>🍿 Kiki Shop Menu 🧋</h1>
+
     <div class="product-list">
       <div class="product">
-        <img src="ရွှေမြန်မာ.jpg" alt="ရွှေမြန်မာ">
+        <img src="ရွှေမြန်မာ.jpg" alt="ရွှေမြန်မာ" />
         <h2>ရွှေမြန်မာ</h2>
         <p>50 Baht</p>
+        <button onclick="addToCart('ရွှေမြန်မာ', 50)">Add to Order - 50 Baht</button>
       </div>
-      
+
       <div class="product">
-        <img src="မားမား.jpg" alt="မားမား">
+        <img src="မားမား.jpg" alt="မားမား" />
         <h2>မားမား</h2>
         <p>10 Baht</p>
+        <button onclick="addToCart('မားမား', 10)">Add to Order - 10 Baht</button>
       </div>
-      
+
       <div class="product">
-        <img src="ပီကေ.jpg" alt="ပီကေ">
+        <img src="ပီကေ.jpg" alt="ပီကေ" />
         <h2>ပီကေ</h2>
-        <p>10 Baht each</p>
+        <p>10 Baht</p>
+        <button onclick="addToCart('ပီကေ', 10)">Add to Order - 10 Baht</button>
       </div>
-      
+
       <div class="product">
-        <img src="nescafe.jpg" alt="nescafe">
+        <img src="nescafe.jpg" alt="Nescafe" />
         <h2>Nescafe</h2>
         <p>15 Baht</p>
+        <button onclick="addToCart('Nescafe', 15)">Add to Order - 15 Baht</button>
       </div>
     </div>
+
+    <div class="order-summary">
+      <h3>Your Order</h3>
+      <div id="order-items">
+        <p class="empty-order" id="empty-message">No items yet</p>
+      </div>
+      <div class="order-total">
+        <strong>Total: <span id="total-amount">0</span> Baht</strong>
+      </div>
+    </div>
+
     <a href="index.html" class="back-button">← Back to Home</a>
   </div>
+
+  <script src="cart.js"></script>
 </body>
 </html>
