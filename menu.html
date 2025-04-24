@@ -94,7 +94,7 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       font-size: 14px;
       width: 100%;
-      max-height: 300px;
+      max-height: 350px;
       overflow-y: auto;
     }
     .order-summary h2 {
@@ -103,7 +103,7 @@
       font-size: 16px;
     }
     .order-items {
-      max-height: 120px;
+      max-height: 140px;
       overflow-y: auto;
       margin: 8px 0;
       font-size: 13px;
@@ -112,8 +112,14 @@
     .order-item {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 6px 0;
       border-bottom: 1px solid #333;
+    }
+    .order-item span { flex:1; }
+    .remove-btn {
+      background: transparent; border:none; color: #f66;
+      font-size: 1.2em; cursor:pointer; padding:0 6px;
     }
     .order-total {
       font-weight: bold;
@@ -143,6 +149,7 @@
         position: static;
         width: 100%;
       }
+      .order-summary {max-height: none;}
       .product-list {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -203,26 +210,26 @@
         <div class="product" data-category="noodle">
           <img src="မားမား.jpg" alt="မားမား">
           <h2>မားမား</h2>
-          <p>5 Baht</p>
-          <button onclick="addToCart('မားမား', 5)">Add to Order</button>
+          <p>10 Baht</p>
+          <button onclick="addToCart('မားမား', 10)">Add to Order</button>
         </div>
         <div class="product" data-category="snack">
           <img src="ပီကေ.jpg" alt="ပီကေ">
           <h2>ပီကေ</h2>
-          <p>5 Baht</p>
-          <button onclick="addToCart('ပီကေ', 5)">Add to Order</button>
+          <p>တစ်ခု10 Baht</p>
+          <button onclick="addToCart('ပီကေ', 10)">Add to Order</button>
         </div>
         <div class="product" data-category="snack">
           <img src="ငခြောက်.jpg" alt="ငခြောက်">
           <h2>ငခြောက်</h2>
-          <p>5 Baht</p>
-          <button onclick="addToCart('ငခြောက်', 5)">Add to Order</button>
+          <p>15 Baht</p>
+          <button onclick="addToCart('ငခြောက်', 15)">Add to Order</button>
         </div>
         <div class="product" data-category="drink">
           <img src="shark.jpg" alt="shark">
           <h2>shark</h2>
-          <p>50 Baht</p>
-          <button onclick="addToCart('shark', 50)">Add to Order</button>
+          <p>30 Baht</p>
+          <button onclick="addToCart('shark', 30)">Add to Order</button>
         </div>
       </div>
     </div>

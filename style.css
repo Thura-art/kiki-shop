@@ -246,3 +246,12 @@ p {
     z-index: 1000;
     pointer-events: none;
 }
+.welcome-video {
+    width: 30%;
+    max-width: 800px;
+    border-radius: 12px;
+    margin: 20px auto;
+    display: block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
