@@ -1,3 +1,4 @@
+<!-- menu.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,83 +6,228 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kiki Shop Menu</title>
   <link rel="stylesheet" href="style.css">
+  <script src="cart.js" defer></script>
+  <style>
+    /* —— overall layout —— */
+    .menu-container {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    /* —— sidebar —— */
+    .sidebar-container {
+      width: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: sticky;
+      top: 20px;
+      align-self: flex-start;
+    }
+    /* —— categories —— */
+    .category-sidebar {
+      background: #1e1e1e;
+      color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .category-filter {
+      display: block;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      border: 1px solid #444;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      background: #2b2b2b;
+      color: #ddd;
+    }
+    .category-filter.active {
+      background: #444;
+      border-color: #666;
+      color: #fff;
+    }
+    /* —— product grid —— */
+    .product-list {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      justify-items: center;
+    }
+    .product {
+      background: #222;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      transition: box-shadow .2s;
+    }
+    .product:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .product img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .product h2, .product p {
+      color: #eee;
+      margin: 5px 0;
+    }
+    .product button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* —— order summary —— */
+    .order-summary {
+      background: #1e1e1e;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      font-size: 14px;
+      width: 100%;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .order-summary h2 {
+      margin: 0 0 10px;
+      color: #fff;
+      font-size: 16px;
+    }
+    .order-items {
+      max-height: 120px;
+      overflow-y: auto;
+      margin: 8px 0;
+      font-size: 13px;
+      color: #ddd;
+    }
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid #333;
+    }
+    .order-total {
+      font-weight: bold;
+      color: #fff;
+      margin-top: 10px;
+    }
+    .confirm-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    /* —— responsive —— */
+    @media (max-width: 1024px) {
+      .product-list {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .menu-container { flex-direction: column; }
+      .sidebar-container {
+        position: static;
+        width: 100%;
+      }
+      .product-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .product-list { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-<body>
+<body style="background: #7b2f2f; margin: 0; padding: 20px; color: #fff;">
   <div class="menu-page">
+    <!-- Back to Homepage -->
+    <a href="index.html" class="back-button">🔙 Back to Homepage</a>
+    
     <h1>🍿 Kiki Shop Menu 🧋</h1>
     
-    <div class="product-list">
-      <div class="product">
-        <img src="ရွှေမြန်မာ.jpg" alt="ရွှေမြန်မာ">
-        <h2>ရွှေမြန်မာ</h2>
-        <p>50 Baht</p>
-        <button onclick="addToCart('ရွှေမြန်မာ', 50)">Add to Order</button>
+    <div class="menu-container">
+      <!-- Sidebar -->
+      <div class="sidebar-container">
+        <!-- Categories -->
+        <div class="category-sidebar">
+          <h3>Categories</h3>
+          <div class="category-filter active" data-category="all">All Items</div>
+          <div class="category-filter" data-category="snack">Snacks</div>
+          <div class="category-filter" data-category="drink">Drinks</div>
+          <div class="category-filter" data-category="weed">Weed</div>
+          <div class="category-filter" data-category="noodle">Noodles</div>
+          <div class="category-filter" data-category="swe-swe">ဆွေဆွေ</div>
+          <div class="category-filter" data-category="beer">Beer</div>
+        </div>
+        <!-- Order Summary -->
+        <div class="order-summary" id="orderSummary">
+          <h2>Your Order <span id="item-count">(0 items)</span></h2>
+          <div id="order-items" class="order-items">
+            <p class="empty-message">No items added yet</p>
+          </div>
+          <div class="order-total">
+            Total: <span id="total-amount">0</span> Baht
+          </div>
+          <button onclick="showContact()" class="confirm-btn">Confirm Order</button>
+          <div id="contact-info" class="contact-info" style="display: none; color: #ddd; margin-top: 8px;">
+            <p>Contact us on Telegram with your order:</p>
+            <a href="https://t.me/JiangLe039" class="telegram-link" id="telegram-link" style="color:#4CAF50;">
+              Send Order via Telegram
+            </a>
+          </div>
+        </div>
       </div>
-
-      <div class="product">
-        <img src="မားမား.jpg" alt="မားမား">
-        <h2>မားမား</h2>
-        <p>5 Baht</p>
-        <button onclick="addToCart('မားမား', 5)">Add to Order</button>
-      </div>
-
-      <div class="product">
-        <img src="ပီကေ.jpg" alt="ပီကေ">
-        <h2>ပီကေ</h2>
-        <p>တစ်ခု 5 Baht</p>
-        <button onclick="addToCart('ပီကေ', 5)">Add to Order</button>
-      </div>
-
-      <div class="product">
-        <img src="ငခြောက်.jpg" alt="ငခြောက်">
-        <h2>ငခြောက်</h2>
-        <p>5 Baht</p>
-        <button onclick="addToCart('ငခြောက်', 5)">Add to Order</button>
-      </div>
-
-      <div class="product">
-        <img src="spicy.jpg" alt="spicy">
-        <h2>spicy</h2>
-        <p>5 Baht</p>
-        <button onclick="addToCart('spicy', 5)">Add to Order</button>
-      </div>
-
-      <div class="product">
-        <img src="shark.jpg" alt="shark">
-        <h2>shark</h2>
-        <p>50 Baht</p>
-        <button onclick="addToCart('shark', 50)">Add to Order</button>
-      </div>
-
-      <div class="product">
-        <img src="nuthouse.jpg" alt="nuthouse">
-        <h2>nuthose</h2>
-        <p>50 Baht</p>
-        <button onclick="addToCart('nuthouse', 50)">Add to Order</button>
-      </div>
-    </div>
-
-    <!-- Order Summary -->
-    <div class="order-summary">
-      <h2>Your Order</h2>
-      <div id="order-items">
-        <p class="empty-message">No items added yet</p>
-      </div>
-      <div class="order-total">
-        Total: <span id="total-amount">0</span> Baht
-      </div>
-      <button onclick="showContact()" class="confirm-btn">Confirm Order</button>
-      
-      <!-- Contact Info (Initially Hidden) -->
-      <div id="contact-info" class="contact-info">
-        <p>Contact us on Telegram with your order:</p>
-        <a href="https://t.me/JiangLe039" class="telegram-link" id="telegram-link">
-          Send Order via Telegram
-        </a>
+      <!-- Products Grid -->
+      <div class="product-list">
+        <!-- Example items (repeat/update) -->
+        <div class="product" data-category="snack">
+          <img src="ရွှေမြန်မာ.jpg" alt="ရွှေမြန်မာ">
+          <h2>ရွှေမြန်မာ</h2>
+          <p>50 Baht</p>
+          <button onclick="addToCart('ရွှေမြန်မာ', 50)">Add to Order</button>
+        </div>
+        <div class="product" data-category="noodle">
+          <img src="မားမား.jpg" alt="မားမား">
+          <h2>မားမား</h2>
+          <p>5 Baht</p>
+          <button onclick="addToCart('မားမား', 5)">Add to Order</button>
+        </div>
+        <div class="product" data-category="snack">
+          <img src="ပီကေ.jpg" alt="ပီကေ">
+          <h2>ပီကေ</h2>
+          <p>5 Baht</p>
+          <button onclick="addToCart('ပီကေ', 5)">Add to Order</button>
+        </div>
+        <div class="product" data-category="snack">
+          <img src="ငခြောက်.jpg" alt="ငခြောက်">
+          <h2>ငခြောက်</h2>
+          <p>5 Baht</p>
+          <button onclick="addToCart('ငခြောက်', 5)">Add to Order</button>
+        </div>
+        <div class="product" data-category="drink">
+          <img src="shark.jpg" alt="shark">
+          <h2>shark</h2>
+          <p>50 Baht</p>
+          <button onclick="addToCart('shark', 50)">Add to Order</button>
+        </div>
       </div>
     </div>
+    <!-- Notification Toast -->
+    <div class="item-added" id="addedNotification">Item added to order!</div>
   </div>
-
-  <script src="cart.js"></script>
 </body>
 </html>
